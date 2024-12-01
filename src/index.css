@@ -8,6 +8,11 @@
   src: url("../public/fonts/digital-7.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "SF-Pro";
+  src: url("../public/fonts/SF-Pro-Display-Medium.otf") format("opentype");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,4 +26,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
   background-color: #e4e6e3;
+}
+
+.phoneTime {
+  @apply font-sfPro;
+  position: absolute;
+  top: 36px;
+  left: 74px;
+  font-size: 14px;
 }

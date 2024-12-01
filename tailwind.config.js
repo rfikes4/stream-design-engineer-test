@@ -11,6 +11,7 @@ module.exports = {
     fontFamily: {
       digitalMono: ["'Digital-7 Mono'", "monospace"],
       digital: ["'Digital-7'", "sans-serif"],
+      sfPro: ["'SF-Pro'", "sans-serif"],
     },
     extend: {
       colors: {

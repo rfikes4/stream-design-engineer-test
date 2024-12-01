@@ -18,3 +18,18 @@
     transform: rotate(360deg);
   }
 } */
+
+.Wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.Wrap::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: calc(100% - 15px);
+  height: calc(100% - 10px);
+  background-color: var(--wrap-bg-color, #91a482);
+  border-radius: 60px;
+}
