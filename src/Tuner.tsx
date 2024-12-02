@@ -1,5 +1,4 @@
-import { useState, useRef } from "react";
-// import { motion, AnimatePresence, PanInfo } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
 interface TunerProps {
@@ -12,37 +11,88 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
   const [tunerPosition, setTunerPosition] = useState(50); // Red line position percentage
   const ref = useRef(null);
 
-  // Close the tuner when clicking outside
+  const [isDragging, setIsDragging] = useState(false);
+  const [station, setStation] = useState(94); // Initial station value
+  const trackRef = useRef<HTMLDivElement>(null);
+
   useOnClickOutside(ref, () => setIsExpanded(false));
+
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      setIsDragging(false);
+      setIsExpanded(false);
+      onCollapse();
+    };
+
+    const handleGlobalTouchEnd = () => {
+      setIsDragging(false);
+      setIsExpanded(false);
+      onCollapse();
+    };
+
+    // Add global event listeners for mouseup and touchend
+    window.addEventListener("mouseup", handleGlobalMouseUp);
+    window.addEventListener("touchend", handleGlobalTouchEnd);
+
+    // Cleanup event listeners on component unmount
+    return () => {
+      window.removeEventListener("mouseup", handleGlobalMouseUp);
+      window.removeEventListener("touchend", handleGlobalTouchEnd);
+    };
+  }, [onCollapse]);
 
   const handleMouseDown = () => {
     setIsExpanded(true);
+    setIsDragging(true);
     onExpand();
   };
 
-  const handleMouseUp = () => {
-    setIsExpanded(false);
-    onCollapse();
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    setIsExpanded(true);
+    setIsDragging(true);
+    onExpand();
   };
 
-  // const handleDrag = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-  //   const newPosition = Math.max(0, Math.min(100, tunerPosition + info.delta.x));
-  //   setTunerPosition(newPosition);
-  // };
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (!isDragging || !trackRef.current) return;
+
+    const trackBounds = trackRef.current.getBoundingClientRect();
+    const mouseX = event.clientX;
+
+    updatePosition(mouseX, trackBounds);
+  };
+
+  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (!isDragging || !trackRef.current) return;
+
+    const trackBounds = trackRef.current.getBoundingClientRect();
+    const touchX = event.touches[0].clientX;
+
+    updatePosition(touchX, trackBounds);
+  };
+
+  const updatePosition = (x: number, bounds: DOMRect) => {
+    const clampedPosition = Math.max(4, Math.min(x - bounds.left, bounds.width - 4));
+    const percentage = (clampedPosition / bounds.width) * 100;
+    setTunerPosition(percentage);
+    const newStation = 80 + (percentage / 100) * 28;
+    setStation(parseFloat(newStation.toFixed(1)));
+  };
 
   return (
-    <div className="tuner"
-      onMouseDown={handleMouseDown} // Expand on mousedown
-      onMouseUp={handleMouseUp} // Collapse on mouseup 
-      onMouseLeave={handleMouseUp} // Collapse on mouseleave
-    // onClick={() => {
-    //   setIsExpanded(!isExpanded);
-    // }}
-    // onClick={() => {
-    //   setIsExpanded(true);
-    // }}
+    <div
+      className="tuner"
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      ref={trackRef}
     >
       <div className="tuner-wrapper">
+        <div className="tuner-detail">
+          <span className="tuner-frequency">{station.toFixed(1)}</span>
+          <span className="tuner-label">KISS FM</span>
+        </div>
         <div className="tuner-stations tuner-fm">
           <em>FM</em>
           <span>88</span>
@@ -52,21 +102,15 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
           <span>104</span>
           <span>107</span>
         </div>
-        <div className="tuner-track">
+        <div className="tuner-track" style={{ height: isExpanded ? "20vh" : "2px" }}>
           <div className="knotch-long-wrapper">
             {Array.from({ length: 8 }).map((_, i) => (
-              <span
-                key={`knotch-long-${i}`}
-                className="knotch-long"
-              ></span>
+              <span key={`knotch-long-${i}`} className="knotch-long"></span>
             ))}
           </div>
           <div className="knotch-short-wrapper">
             {Array.from({ length: 35 }).map((_, i) => (
-              <span
-                key={`knotch-short-${i}`}
-                className="knotch-short"
-              ></span>
+              <span key={`knotch-short-${i}`} className="knotch-short"></span>
             ))}
           </div>
         </div>
@@ -83,35 +127,6 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
           <span>16</span>
         </div>
       </div>
-      {/* <motion.div
-        layoutId="wrapper"
-        // onMouseDown={handleMouseDown} // Expand on mousedown
-        // onMouseUp={handleMouseUp} // Collapse on mouseup
-        className="tuner-collapsed"
-        ref={ref}
-      >
-        <motion.span layoutId="fm" className="tuner-stations tuner-fm"><em>FM</em> 88 92 96 100 104 107</motion.span>
-        <motion.span layoutId="am" className="tuner-stations tuner-am"><em>AM</em> 5.4 06 07 08 10 12 14 16</motion.span>
-      </motion.div>
-      <AnimatePresence mode="popLayout">
-        {isExpanded && (
-          <motion.div
-            layoutId="wrapper"
-            className="tuner-expanded"
-            // initial={{ opacity: 0, transform: "scale(0.9)" }}
-            // animate={{ opacity: 1, transform: "scale(1)" }}
-            // exit={{ opacity: 0, transform: "scale(0.9)" }}
-            // transition={{ type: "spring", duration: 0.3, bounce: 0 }}
-            transition={{ duration: 0.5 }}
-          // onClick={() => {
-          //   setIsExpanded(false);
-          // }}
-          >
-            <motion.span layoutId="fm" className="tuner-stations tuner-fm"><em>FM</em> 88 92 96 100 104 107</motion.span>
-            <motion.span layoutId="am" className="tuner-stations tuner-am"><em>AM</em> 5.4 06 07 08 10 12 14 16</motion.span>
-          </motion.div>
-        )}
-      </AnimatePresence> */}
     </div>
   );
 };
