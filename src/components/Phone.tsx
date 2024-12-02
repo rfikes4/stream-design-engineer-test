@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import AudioVisualizer from './AudioVisualizer';
 import Tuner from './Tuner';
 import StatusBar from './StatusBar';
-
+import './Phone.css';
+import Controls from './Controls';
 
 
 const Phone: React.FC = () => {
@@ -21,17 +22,7 @@ const Phone: React.FC = () => {
             onExpand={() => setTunerExpanded(true)}
             onCollapse={() => setTunerExpanded(false)}
           />
-          <div className="controls">
-            <div className="control-icon">
-              <img src="/icon-left.svg" alt="Icon Left" />
-            </div>
-            <div className="control-icon-up" >
-              <img src="/icon-up.svg" alt="Icon Up" />
-            </div>
-            <div className="control-icon">
-              <img src="/icon-right.svg" alt="Icon Right" />
-            </div>
-          </div>
+          <Controls />
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 // TODO
 // - remove port 3001
 
-import './App.css'; // TODO: just use index.css
+import './App.css';
 import Background from './components/Background';
 import Phone from './components/Phone';
 

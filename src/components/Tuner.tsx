@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import NumberFlow from "@number-flow/react";
+import './Tuner.css';
 
 interface TunerProps {
   onExpand: () => void;

@@ -1,0 +1,30 @@
+.controls {
+  position: absolute;
+  bottom: 3.5vh;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: fit-content;
+  padding: 0 0.5vh;
+}
+
+.control-icon {
+  height: 7vh;
+  width: 7vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & > img {
+    height: 2.5vh;
+  }
+}
+
+.control-icon::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #899c7b;
+  border-radius: 50%;
+}

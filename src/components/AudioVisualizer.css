@@ -1,0 +1,27 @@
+.visualizer {
+  overflow: hidden;
+}
+
+.grid {
+  transition: transform 0.3s ease-in-out;
+}
+
+.grid.expanded {
+  transform: translateY(-21.1vh);
+}
+
+.grid-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #91a482;
+  width: 100%;
+  height: 100vh;
+  transition: transform 0.3s ease-in-out;
+}
+
+.dot {
+  width: 0.9vh;
+  height: 0.9vh;
+  border-radius: 100%;
+}

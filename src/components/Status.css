@@ -1,0 +1,36 @@
+.status {
+  position: absolute;
+  top: 3.8%;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2.6vh;
+  width: 100%;
+  height: 3vh;
+}
+
+.status-time {
+  @apply font-sfPro;
+  font-size: 1.5vh;
+  display: flex;
+  align-items: center;
+}
+
+.status-icon {
+  filter: brightness(0);
+  height: 1.335vh;
+}
+
+.status-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14.5vh;
+}
+.status-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7vh;
+  width: 14.5vh;
+}
