@@ -1,6 +1,7 @@
 import './App.css'; // TODO: just use index.css
 import React, { useState, useEffect } from 'react';
 import AudioVisualizer from './AudioVisualizer';
+import Tuner from './Tuner';
 
 const getFormattedTime = () => {
   const date = new Date();
@@ -13,6 +14,7 @@ const getFormattedTime = () => {
 function App() {
   const [currentTime, setCurrentTime] = useState(getFormattedTime());
   const phoneBgColor = "#91a482";
+  const [tunerExpanded, setTunerExpanded] = useState(false);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -56,6 +58,10 @@ function App() {
         <div className="content">
           <div className="title">{`PLAY\nKISS FM\nFOR ME`}</div>
           <AudioVisualizer />
+          <Tuner
+            onExpand={() => setTunerExpanded(true)} // Set state when tuner expands
+            onCollapse={() => setTunerExpanded(false)} // Set state when tuner collapses
+          />
         </div>
       </div>
     </div>
