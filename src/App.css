@@ -142,15 +142,19 @@
   justify-content: space-between;
   align-items: self-start;
   width: 100%;
-  padding: 0.5vh 0;
+  padding: 0 1vh 0 1vh;
 }
 
 .tuner-frequency {
   color: #91a482;
+  font-size: 6vh;
 }
 
 .tuner-label {
-  color: #3c4436;
+  /* color: #3c4436; */
+  color: #637158;
+  padding: 1.2vh 0 0;
+  font-size: 1.8vh;
 }
 
 .tuner-track {

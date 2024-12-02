@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useOnClickOutside } from "usehooks-ts";
+import NumberFlow from '@number-flow/react';
 
 interface TunerProps {
   onExpand: () => void;
@@ -12,7 +13,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
   const ref = useRef(null);
 
   const [isDragging, setIsDragging] = useState(false);
-  const [station, setStation] = useState(94); // Initial station value
+  const [station, setStation] = useState(94.1); // Initial station value
   const trackRef = useRef<HTMLDivElement>(null);
 
   useOnClickOutside(ref, () => setIsExpanded(false));
@@ -90,7 +91,8 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
     >
       <div className="tuner-wrapper">
         <div className="tuner-detail">
-          <span className="tuner-frequency">{station.toFixed(1)}</span>
+          {/* <span className="tuner-frequency">{station.toFixed(1)}</span> */}
+          <NumberFlow value={parseFloat(station.toFixed(1))} className="tuner-frequency" />
           <span className="tuner-label">KISS FM</span>
         </div>
         <div className="tuner-stations tuner-fm">
