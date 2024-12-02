@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-const AudioVisualizer: React.FC = () => {
+interface AudioVisualizerProps {
+  isExpanded: boolean;
+}
+
+const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ isExpanded }) => {
   const rows = 24;
   const columns = 22;
   const levelColumns = 11;
@@ -10,7 +14,6 @@ const AudioVisualizer: React.FC = () => {
     Array.from({ length: rows }, () => Array(columns).fill(0))
   );
 
-  // Generate random levels for each audio column
   const generateLevels = () => {
     const newLevels = Array.from({ length: levelColumns }, () =>
       Math.floor(Math.random() * rows)
@@ -38,9 +41,12 @@ const AudioVisualizer: React.FC = () => {
   }, []);
 
   return (
-    <div className="visualizer flex items-center justify-center">
+    <div
+      className="visualizer flex items-center justify-center"
+    >
       <div
-        className="grid"
+        className={`grid ${isExpanded ? "expanded" : ""
+          }`}
         style={{
           display: "grid",
           gridTemplateColumns: `repeat(${columns}, 1fr)`,

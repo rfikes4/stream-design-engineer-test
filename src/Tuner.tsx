@@ -121,7 +121,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
           <div
             className="tuner-track"
             style={{
-              height: isExpanded ? "20vh" : "2px",
+              height: isExpanded ? "12vh" : "2px",
               transition: isExpanded ? "height 0.3s ease-in-out" : undefined,
             }}
           >

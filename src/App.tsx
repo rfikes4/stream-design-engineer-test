@@ -61,7 +61,7 @@ function App() {
         <div className="content">
           <div className="content-wrapper">
             <div className="title">{`PLAY\nKISS FM\nFOR ME`}</div>
-            <AudioVisualizer />
+            <AudioVisualizer isExpanded={tunerExpanded} />
             <Tuner
               onExpand={() => setTunerExpanded(true)}
               onCollapse={() => setTunerExpanded(false)}
