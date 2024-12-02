@@ -1,13 +1,18 @@
 import './App.css'; // TODO: just use index.css
 import React, { useState, useEffect } from 'react';
+import AudioVisualizer from './AudioVisualizer';
 
 const getFormattedTime = () => {
-  return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+  const date = new Date();
+  let hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const formattedHours = (hours % 12 || 12).toString();
+  return `${formattedHours}:${minutes}`;
 }
 
 function App() {
-  const [phoneBgColor, setPhoneBgColor] = useState("#91a482");
   const [currentTime, setCurrentTime] = useState(getFormattedTime());
+  const phoneBgColor = "#91a482";
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -35,9 +40,23 @@ function App() {
           </p>
         </div>
       </div>
-      <div className="Wrap h-[calc(90vh)] flex items-center justify-center relative" style={{ "--wrap-bg-color": phoneBgColor } as React.CSSProperties}>
+      <div className="phone h-[calc(90vh)] flex items-center justify-center relative" style={{ "--phone-bg-color": phoneBgColor } as React.CSSProperties}>
         <img src="/iphone.png" alt="iPhone" className="h-full" />
-        <span className="phoneTime">{currentTime}</span>
+        <div className="status">
+          {/* TODO: turn into status component */}
+          <div className="status-left">
+            <span className="status-time">{currentTime}</span>
+          </div>
+          <div className="status-right">
+            <img src="/ios15-cellular-signal-icon.png" alt="Signal Icon" className="status-icon" />
+            <img src="/ios15-wifi-icon.png" alt="WiFi Icon" className="status-icon" />
+            <img src="/ios15-battery-status-icon.png" alt="Battery Icon" className="status-icon" />
+          </div>
+        </div>
+        <div className="content">
+          <div className="title">{`PLAY\nKISS FM\nFOR ME`}</div>
+          <AudioVisualizer />
+        </div>
       </div>
     </div>
   );
