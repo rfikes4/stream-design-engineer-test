@@ -1,10 +1,7 @@
-import { useEffect, useState, useRef } from "react";
-// import { useOnClickOutside } from "usehooks-ts";
-// import { motion, PanInfo } from "framer-motion";
-import { motion, AnimatePresence, PanInfo } from "framer-motion";
+import { useState, useRef } from "react";
+// import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { useOnClickOutside } from "usehooks-ts";
 
-// Define props for the Tuner component
 interface TunerProps {
   onExpand: () => void;
   onCollapse: () => void;
@@ -12,163 +9,109 @@ interface TunerProps {
 
 const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [expanded, setExpanded] = useState(false); // Tuner expanded state
-  const [tunerPosition, setTunerPosition] = useState(50); // Tuner red line position (percentage)
+  const [tunerPosition, setTunerPosition] = useState(50); // Red line position percentage
+  const ref = useRef(null);
 
-  // const minFrequency = 88.0; // Minimum radio frequency
-  // const maxFrequency = 108.0; // Maximum radio frequency
-
-  // Calculate the current radio station frequency
-  // const getFrequency = (): string =>
-  //   (minFrequency + (maxFrequency - minFrequency) * (tunerPosition / 100)).toFixed(1);
-
-  const handleDrag = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    const newPosition = Math.max(0, Math.min(100, tunerPosition + info.delta.x));
-    setTunerPosition(newPosition);
-  };
+  // Close the tuner when clicking outside
+  useOnClickOutside(ref, () => setIsExpanded(false));
 
   const handleMouseDown = () => {
-    setExpanded(true);
+    setIsExpanded(true);
     onExpand();
   };
 
   const handleMouseUp = () => {
-    setExpanded(false);
+    setIsExpanded(false);
     onCollapse();
   };
 
-
-  const [open, setOpen] = useState(false);
-  const [formState, setFormState] = useState(
-    "idle",
-  );
-  const [feedback, setFeedback] = useState("");
-  const ref = useRef(null);
-  useOnClickOutside(ref, () => setOpen(false));
-
-  // function submit() {
-  //   setFormState("loading");
-  //   setTimeout(() => {
-  //     setFormState("success");
-  //   }, 1500);
-
-  //   setTimeout(() => {
-  //     setOpen(false);
-  //   }, 3300);
-  // }
-
-  // useEffect(() => {
-  //   const handleKeyDown = (event: KeyboardEvent) => { // Specify type here
-  //     if (event.key === "Escape") {
-  //       setOpen(false);
-  //     }
-
-  //     if (
-  //       (event.ctrlKey || event.metaKey) &&
-  //       event.key === "Enter" &&
-  //       open &&
-  //       formState === "idle"
-  //     ) {
-  //       submit();
-  //     }
-  //   };
-
-  //   window.addEventListener("keydown", handleKeyDown);
-  //   return () => window.removeEventListener("keydown", handleKeyDown);
-  // }, [open, formState]);
+  // const handleDrag = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+  //   const newPosition = Math.max(0, Math.min(100, tunerPosition + info.delta.x));
+  //   setTunerPosition(newPosition);
+  // };
 
   return (
-    // <div>
-    //   <motion.div
-    //     className="w-64 p-4 bg-white shadow-lg rounded-lg cursor-pointer"
-    //     // onClick={() => setIsExpanded(!isExpanded)}
-    //     onMouseDown={() => setIsExpanded(true)}
-    //     onMouseUp={() => setIsExpanded(false)}
-    //     initial={{ scale: 1 }}
-    //     animate={{ scale: isExpanded ? 1.1 : 1 }}
-    //     transition={{ type: "spring", bounce: 0.35 }}
-    //   // transition={{ type: "spring", stiffness: 200 }}
-    //   >
-    //     <motion.div
-    //       className="h-40 bg-blue-500 rounded"
-    //       layout
-    //       initial={{ opacity: 0.8 }}
-    //       animate={{ opacity: isExpanded ? 1 : 0.8 }}
-    //       transition={{ duration: 0.15 }}
-    //     />
-    //     <motion.div
-    //       className="mt-4 text-center text-gray-800"
-    //       layout
-    //       initial={{ y: 20 }}
-    //       animate={{ y: isExpanded ? 0 : 20 }}
-    //       transition={{ duration: 0.15 }}
-    //     >
-    //       {isExpanded ? "Expanded State" : "Default State"}
-    //     </motion.div>
-    //   </motion.div>
-    // </div>
-    <div className="feedback-wrapper">
-      <motion.div
+    <div className="tuner"
+      onMouseDown={handleMouseDown} // Expand on mousedown
+      onMouseUp={handleMouseUp} // Collapse on mouseup 
+      onMouseLeave={handleMouseUp} // Collapse on mouseleave
+    // onClick={() => {
+    //   setIsExpanded(!isExpanded);
+    // }}
+    // onClick={() => {
+    //   setIsExpanded(true);
+    // }}
+    >
+      <div className="tuner-wrapper">
+        <div className="tuner-stations tuner-fm">
+          <em>FM</em>
+          <span>88</span>
+          <span>92</span>
+          <span>96</span>
+          <span>100</span>
+          <span>104</span>
+          <span>107</span>
+        </div>
+        <div className="tuner-track">
+          <div className="knotch-long-wrapper">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <span
+                key={`knotch-long-${i}`}
+                className="knotch-long"
+              ></span>
+            ))}
+          </div>
+          <div className="knotch-short-wrapper">
+            {Array.from({ length: 35 }).map((_, i) => (
+              <span
+                key={`knotch-short-${i}`}
+                className="knotch-short"
+              ></span>
+            ))}
+          </div>
+        </div>
+        <div className="tuner-dial" style={{ left: `${tunerPosition}%` }}></div>
+        <div className="tuner-stations tuner-am">
+          <em>AM</em>
+          <span>5.4</span>
+          <span>06</span>
+          <span>07</span>
+          <span>08</span>
+          <span>10</span>
+          <span>12</span>
+          <span>14</span>
+          <span>16</span>
+        </div>
+      </div>
+      {/* <motion.div
         layoutId="wrapper"
-        onClick={() => {
-          setOpen(true);
-          setFormState("idle");
-          setFeedback("");
-        }}
-        key="button"
-        className="feedback-button"
-      // style={{ borderRadius: 8 }}
+        // onMouseDown={handleMouseDown} // Expand on mousedown
+        // onMouseUp={handleMouseUp} // Collapse on mouseup
+        className="tuner-collapsed"
+        ref={ref}
       >
-        {/* <motion.span layoutId="title">Feedback</motion.span> */}
-        <motion.span layoutId="fm">fm 88 92 96 100 104 107</motion.span>
+        <motion.span layoutId="fm" className="tuner-stations tuner-fm"><em>FM</em> 88 92 96 100 104 107</motion.span>
+        <motion.span layoutId="am" className="tuner-stations tuner-am"><em>AM</em> 5.4 06 07 08 10 12 14 16</motion.span>
       </motion.div>
-      <AnimatePresence>
-        {open ? (
+      <AnimatePresence mode="popLayout">
+        {isExpanded && (
           <motion.div
             layoutId="wrapper"
-            className="feedback-popover"
-            ref={ref}
-          // style={{ borderRadius: 12 }}
+            className="tuner-expanded"
+            // initial={{ opacity: 0, transform: "scale(0.9)" }}
+            // animate={{ opacity: 1, transform: "scale(1)" }}
+            // exit={{ opacity: 0, transform: "scale(0.9)" }}
+            // transition={{ type: "spring", duration: 0.3, bounce: 0 }}
+            transition={{ duration: 0.5 }}
+          // onClick={() => {
+          //   setIsExpanded(false);
+          // }}
           >
-            {/* <motion.span
-              aria-hidden
-              className="placeholder"
-              layoutId="title"
-              data-success={formState === "success" ? "true" : "false"}
-              data-feedback={feedback ? "true" : "false"}
-            >
-              Feedback
-            </motion.span> */}
-            <motion.span layoutId="fm">fm 88 92 96 100 104 107</motion.span>
-            {/* <AnimatePresence mode="popLayout">
-              <motion.form
-                exit={{ y: 8, opacity: 0, filter: "blur(4px)" }}
-                transition={{ type: "spring", duration: 0.4, bounce: 0 }}
-                key="form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  // if (!feedback) return;
-                  // submit();
-                }}
-                className="feedback-form"
-              >
-                <textarea
-                  autoFocus
-                  placeholder="Feedback"
-                  onChange={(e) => setFeedback(e.target.value)}
-                  className="textarea"
-                  required
-                />
-                <div className="feedback-footer">
-                  <button type="submit" className="submit-button">
-                    <span>Send feedback</span>
-                  </button>
-                </div>
-              </motion.form>
-            </AnimatePresence> */}
+            <motion.span layoutId="fm" className="tuner-stations tuner-fm"><em>FM</em> 88 92 96 100 104 107</motion.span>
+            <motion.span layoutId="am" className="tuner-stations tuner-am"><em>AM</em> 5.4 06 07 08 10 12 14 16</motion.span>
           </motion.div>
-        ) : null}
-      </AnimatePresence>
+        )}
+      </AnimatePresence> */}
     </div>
   );
 };

@@ -38,7 +38,7 @@ const AudioVisualizer: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="visualizer flex items-center justify-center">
       <div
         className="grid"
         style={{

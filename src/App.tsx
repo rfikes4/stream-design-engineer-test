@@ -1,3 +1,6 @@
+// TODO
+// - remove port 3001
+
 import './App.css'; // TODO: just use index.css
 import React, { useState, useEffect } from 'react';
 import AudioVisualizer from './AudioVisualizer';
@@ -16,7 +19,7 @@ const getFormattedTime = () => {
 
 function App() {
   const [currentTime, setCurrentTime] = useState(getFormattedTime());
-  const phoneBgColor = "#91a482";
+  const phoneBgColor = "#91a482"; // TODO: use a variable, set as css root var to use for text colors
   const [tunerExpanded, setTunerExpanded] = useState(false);
 
   useEffect(() => {
