@@ -9,8 +9,8 @@ interface TunerProps {
 
 const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false); // To handle the transition
-  const [tunerPosition, setTunerPosition] = useState(50); // Red line position percentage
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [tunerPosition, setTunerPosition] = useState(50);
   const ref = useRef(null);
 
   const [isDragging, setIsDragging] = useState(false);
@@ -33,11 +33,9 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
       onCollapse();
     };
 
-    // Add global event listeners for mouseup and touchend
     window.addEventListener("mouseup", handleGlobalMouseUp);
     window.addEventListener("touchend", handleGlobalTouchEnd);
 
-    // Cleanup event listeners on component unmount
     return () => {
       window.removeEventListener("mouseup", handleGlobalMouseUp);
       window.removeEventListener("touchend", handleGlobalTouchEnd);
@@ -48,25 +46,23 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
     if (isExpanded && mousePosition !== null && trackRef.current) {
       const trackBounds = trackRef.current.getBoundingClientRect();
 
-      // Set the animation state to true for smooth transition
       setIsAnimating(true);
       updatePosition(mousePosition, trackBounds);
 
-      // Clear animation state after transition ends
-      const timeout = setTimeout(() => setIsAnimating(false), 300); // Match transition duration
+      const timeout = setTimeout(() => setIsAnimating(false), 300);
       return () => clearTimeout(timeout);
     }
   }, [isExpanded, mousePosition]);
 
   const handleMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    setMousePosition(event.clientX); // Capture the initial mouse position
+    setMousePosition(event.clientX);
     setIsExpanded(true);
     setIsDragging(true);
     onExpand();
   };
 
   const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
-    setMousePosition(event.touches[0].clientX); // Capture the initial touch position
+    setMousePosition(event.touches[0].clientX);
     setIsExpanded(true);
     setIsDragging(true);
     onExpand();
@@ -141,10 +137,10 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
             </div>
           </div>
           <div
-            className="tuner-dial"
+            className={`tuner-dial ${isExpanded ? "expanded" : ""}`}
             style={{
               left: `${tunerPosition}%`,
-              transition: isAnimating ? "left 0.3s ease-in-out" : undefined,
+              transition: isAnimating ? "left 0.3s ease-in-out, top 0.3s ease-in-out, height 0.3s ease-in-out" : "top 0.3s ease-in-out, height 0.3s ease-in-out",
             }}
           ></div>
           <div className="tuner-stations tuner-am">

@@ -5,9 +5,6 @@ import './App.css'; // TODO: just use index.css
 import React, { useState, useEffect } from 'react';
 import AudioVisualizer from './AudioVisualizer';
 import Tuner from './Tuner';
-// import iconUp from './icon-up.svg';
-// import iconLeft from './icon-left.svg';
-// import iconRight from './icon-right.svg';
 
 const getFormattedTime = () => {
   const date = new Date();
@@ -66,8 +63,8 @@ function App() {
             <div className="title">{`PLAY\nKISS FM\nFOR ME`}</div>
             <AudioVisualizer />
             <Tuner
-              onExpand={() => setTunerExpanded(true)} // Set state when tuner expands
-              onCollapse={() => setTunerExpanded(false)} // Set state when tuner collapses
+              onExpand={() => setTunerExpanded(true)}
+              onCollapse={() => setTunerExpanded(false)}
             />
             <div className="controls">
               <div className="control-icon">
