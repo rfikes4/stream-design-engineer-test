@@ -143,6 +143,16 @@
   align-items: self-start;
   width: 100%;
   padding: 0 1vh 0 1vh;
+  height: 0vh;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.tuner-detail.expanded {
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+  height: 9vh;
 }
 
 .tuner-frequency {
@@ -229,12 +239,17 @@
   left: 0;
 }
 
+.tuner-stations-wrapper {
+  position: relative;
+  width: 100%;
+}
 .tuner-stations {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   color: #91a482;
+  font-size: 2vh;
   & > em {
     color: #3c4436;
     font-style: initial;
