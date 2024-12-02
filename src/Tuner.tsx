@@ -108,7 +108,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
     //   </motion.div>
     // </div>
     <div className="feedback-wrapper">
-      <motion.button
+      <motion.div
         layoutId="wrapper"
         onClick={() => {
           setOpen(true);
@@ -117,19 +117,20 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
         }}
         key="button"
         className="feedback-button"
-        style={{ borderRadius: 8 }}
+      // style={{ borderRadius: 8 }}
       >
-        <motion.span layoutId="title">Feedback</motion.span>
-      </motion.button>
+        {/* <motion.span layoutId="title">Feedback</motion.span> */}
+        <motion.span layoutId="fm">fm 88 92 96 100 104 107</motion.span>
+      </motion.div>
       <AnimatePresence>
         {open ? (
           <motion.div
             layoutId="wrapper"
             className="feedback-popover"
             ref={ref}
-            style={{ borderRadius: 12 }}
+          // style={{ borderRadius: 12 }}
           >
-            <motion.span
+            {/* <motion.span
               aria-hidden
               className="placeholder"
               layoutId="title"
@@ -137,8 +138,9 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
               data-feedback={feedback ? "true" : "false"}
             >
               Feedback
-            </motion.span>
-            <AnimatePresence mode="popLayout">
+            </motion.span> */}
+            <motion.span layoutId="fm">fm 88 92 96 100 104 107</motion.span>
+            {/* <AnimatePresence mode="popLayout">
               <motion.form
                 exit={{ y: 8, opacity: 0, filter: "blur(4px)" }}
                 transition={{ type: "spring", duration: 0.4, bounce: 0 }}
@@ -163,7 +165,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
                   </button>
                 </div>
               </motion.form>
-            </AnimatePresence>
+            </AnimatePresence> */}
           </motion.div>
         ) : null}
       </AnimatePresence>
