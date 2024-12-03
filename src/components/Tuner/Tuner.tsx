@@ -75,46 +75,19 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
 
   const handleMove = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
-      if ("touches" in event) {
-        if (isTouchDown && event.touches[0].clientX !== initialX && !isDragging) {
+      const isTouchEvent = "touches" in event;
+      const clientX = isTouchEvent ? event.touches[0].clientX : event.clientX;
+
+      if ((isTouchEvent && isTouchDown) || (!isTouchEvent && isMouseDown)) {
+        if (clientX !== initialX && !isDragging) {
           setIsDragging(true);
           setDialTransition("left 0.3s ease-out");
-          setTimeout(() => {
-            setDialTransition("none");
-          }, 300);
-
-          if (trackRef.current) {
-            const bounds = trackRef.current.getBoundingClientRect();
-            updatePosition(event.touches[0].clientX, bounds);
-          }
-
-
-
-          setIsDragged(true);
+          setTimeout(() => setDialTransition("none"), 300);
         }
-        if (isDragging && trackRef.current) {
+
+        if (trackRef.current) {
           const bounds = trackRef.current.getBoundingClientRect();
-          updatePosition(event.touches[0].clientX, bounds);
-          setIsDragged(true);
-        }
-      } else {
-        if (isMouseDown && event.clientX !== initialX && !isDragging) {
-          setIsDragging(true);
-          setDialTransition("left 0.3s ease-out");
-          setTimeout(() => {
-            setDialTransition("none");
-          }, 300);
-
-          if (trackRef.current) {
-            const bounds = trackRef.current.getBoundingClientRect();
-            updatePosition(event.clientX, bounds);
-          }
-
-          setIsDragged(true);
-        }
-        if (isDragging && trackRef.current) {
-          const bounds = trackRef.current.getBoundingClientRect();
-          updatePosition(event.clientX, bounds);
+          updatePosition(clientX, bounds);
           setIsDragged(true);
         }
       }
