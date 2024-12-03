@@ -20,7 +20,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
     const clampedPosition = Math.max(4, Math.min(x - bounds.left, bounds.width - 4));
     const percentage = (clampedPosition / bounds.width) * 100;
     setTunerPosition(percentage);
-    const newStation = 84.5 + (percentage / 100) * 24;
+    const newStation = parseFloat((84.5 + (percentage / 100) * 24).toFixed(1));
     setStation(newStation);
   };
 
@@ -91,7 +91,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
     >
       <div className="tuner-wrapper">
         <div className={`tuner-detail ${isExpanded ? "expanded" : ""}`}>
-          <NumberFlow value={station} format={{ style: 'decimal', maximumFractionDigits: 1 }} className="tuner-frequency text-primary" />
+          <NumberFlow value={station} format={{ minimumFractionDigits: 1 }} className="tuner-frequency text-primary" />
           <span className="tuner-label">KISS FM</span>
         </div>
         <div className="tuner-stations-wrapper">
