@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import AudioVisualizer from './AudioVisualizer/AudioVisualizer';
-import Tuner from './Tuner';
-import StatusBar from './StatusBar';
+import AudioVisualizer from '../AudioVisualizer/AudioVisualizer';
+import Tuner from '../Tuner/Tuner';
+import StatusBar from '../StatusBar/StatusBar';
 import './Phone.css';
-import Controls from './Controls';
+import Controls from '../Controls/Controls';
 
 const Phone: React.FC = () => {
   const [tunerExpanded, setTunerExpanded] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getFormattedTime } from '../utils/timeUtils';
-import './Status.css';
+import { getFormattedTime } from '../../utils/timeUtils';
+import './StatusBar.css';
 
 const StatusBar: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(getFormattedTime());

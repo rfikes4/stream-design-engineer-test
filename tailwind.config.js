@@ -18,9 +18,6 @@ module.exports = {
         primary: "#91a482",
         lightGray: "#cdcfcd",
       },
-      // letterSpacing: {
-      //   tight: "-1rem",
-      // },
     },
   },
   plugins: [],

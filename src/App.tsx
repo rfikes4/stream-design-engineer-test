@@ -1,6 +1,6 @@
 import './App.css';
 import Background from './components/Background/Background';
-import Phone from './components/Phone';
+import Phone from './components/Phone/Phone';
 
 function App() {
   return (
