@@ -49,3 +49,9 @@
   height: 0.9vh;
   border-radius: 100%;
 }
+
+@media (orientation: portrait) and (max-width: 500px) {
+  .visualizer {
+    margin-top: 0;
+  }
+}

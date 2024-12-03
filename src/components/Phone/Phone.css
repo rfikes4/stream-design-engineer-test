@@ -34,3 +34,20 @@
   line-height: 3.7vh;
   margin: 3vh 0;
 }
+
+@media (orientation: portrait) and (max-width: 500px) {
+  .phone {
+    height: 100%;
+    width: 100%;
+  }
+
+  .phone::before {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .phone-img {
+    visibility: hidden;
+  }
+}

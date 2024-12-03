@@ -2,7 +2,7 @@
   position: absolute;
   left: 0;
   bottom: 12vh;
-  height: fit-content;
+  height: auto;
   width: 100%;
   padding: 0 0.5vh;
   cursor: grab;
@@ -162,4 +162,10 @@
 
 .tuner-am {
   padding: 2.5vh 0.5vh 1vh;
+}
+
+@media (orientation: portrait) and (max-width: 500px) {
+  .tuner {
+    bottom: 14vh;
+  }
 }

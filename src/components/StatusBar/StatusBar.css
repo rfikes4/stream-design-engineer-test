@@ -34,3 +34,9 @@
   gap: 0.7vh;
   width: 14.5vh;
 }
+
+@media (orientation: portrait) and (max-width: 500px) {
+  .status {
+    padding: 0;
+  }
+}

@@ -10,7 +10,7 @@ const Phone: React.FC = () => {
 
   return (
     <div className="phone h-[calc(90vh)] flex items-center justify-center relative before:bg-primary">
-      <img src="/iphone.png" alt="iPhone" className="h-full" />
+      <img src="/iphone.png" alt="iPhone" className="h-full phone-img" />
       <StatusBar />
       <div className="content">
         <div className="content-wrapper">
