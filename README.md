@@ -1,46 +1,82 @@
-# Getting Started with Create React App
+# Stream Design Engineer Test
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was created as part of a design and functionality test for [Stream](https://getstream.io/). It demonstrates my ability to craft innovative, high-quality user interfaces and interactions using modern web technologies.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Project Overview
 
-### `npm start`
+I’m always on the hunt for cool designs and interactions to explore and learn from every day. Initially, I conducted a website audit of [Stream](https://getstream.io/) to identify areas for improvement in terms of design and functionality. However, after revisiting the test brief, I decided to take a different approach and used this opportunity to create a unique design inspired by examples from my inspiration library.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+For this project, I chose an example shared by [Slava Kornilov](https://x.com/slavakornilov/status/1844337146775339088). I was drawn to its retro-modern style and the inclusion of a concept animation. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+https://dribbble.com/shots/24958285-Radio
+![image](https://github.com/user-attachments/assets/b253baa3-a053-47e0-b26c-f4d41a79254a)
 
-### `npm test`
+https://x.com/slavakornilov/status/1844337146775339088
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+https://github.com/user-attachments/assets/c4feb1a8-82db-44d4-8150-fa144e0bf46c
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Key Features
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **Cross-Browser Compatibility**: The design has been tested and optimized for all major browsers.
+- **Mobile-Friendly**: Additional styling was added to ensure a seamless experience on mobile devices.
+- **Custom Assets**: Icons and images were created from scratch using Adobe Illustrator and Photoshop.
+- **Frameworks Used**:
+  - **React**: For building the interactive user interface.
+  - **Tailwind CSS**: Initially used for rapid styling.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Challenges and Solutions
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **Framework Adjustments**: While Tailwind CSS accelerated initial development, it became overly complex for a highly interactive design. Modular CSS files were introduced to improve organization and readability.
+- **Custom Asset Creation**: Building icons and images from scratch ensured that the design matched the retro-modern aesthetic perfectly.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Tools and Technologies
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **React**
+- **Tailwind CSS**
+- **Typescript**
+- **Adobe Illustrator**
+- **Adobe Photoshop**
+
+---
+
+## Getting Started
+
+To view and run this project locally, follow these steps:
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/rfikes4/stream-design-engineer-test.git
+```
+
+2. **Install dependencies:**
+```bash
+npm install
+```
+
+3. **Start the development server:**
+```bash
+npm start
+```
+
+4. Open your browser and navigate to http://localhost:3000.
+
+5. Tap the radio station tuner to expand the component. Drag on the component to select a station frequency. Tap again to toggle and collapse.
+
+---
+
+## Results
+
+https://github.com/user-attachments/assets/95bd1276-38ab-4966-9096-e204a72afcd9
+
+
