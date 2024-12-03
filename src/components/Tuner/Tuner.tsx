@@ -46,36 +46,32 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
 
   const handleDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
-      if ("touches" in event) {
+      const isTouchEvent = "touches" in event;
+      const clientX = isTouchEvent ? event.touches[0].clientX : event.clientX;
+
+      if (isTouchEvent) {
         setIsTouchDown(true);
-        if (!isExpanded) {
-          setExpandedClicked(false);
-          setIsExpanded(true);
-          setInitialX(event.touches[0].clientX);
-          setIsAnimating(true);
-          setTimeout(() => setIsAnimating(false), 300);
-        } else {
-          setExpandedClicked(true);
-          setIsDragged(false);
-        }
       } else {
         if (isTouchDown) {
           handleUp(event);
           return;
-        };
-        setIsMouseDown(true);
-        if (!isExpanded) {
-          setExpandedClicked(false);
-          setIsExpanded(true);
-          setInitialX(event.clientX);
-          setIsAnimating(true);
-          setTimeout(() => setIsAnimating(false), 300);
-        } else {
-          setExpandedClicked(true);
-          setIsDragged(false);
         }
+        setIsMouseDown(true);
       }
-    }, [handleUp, isExpanded, isTouchDown]);
+
+      if (!isExpanded) {
+        setExpandedClicked(false);
+        setIsExpanded(true);
+        setInitialX(clientX);
+        setIsAnimating(true);
+        setTimeout(() => setIsAnimating(false), 300);
+      } else {
+        setExpandedClicked(true);
+        setIsDragged(false);
+      }
+    },
+    [handleUp, isExpanded, isTouchDown]
+  );
 
   const handleMove = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
