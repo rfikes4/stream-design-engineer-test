@@ -32,39 +32,10 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
 
   const handleUp = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
-      console.log("handleUp");
-
-
-      // if (expandedClicked && !dragged) {
-      //   setIsExpanded(false);
-      //   setIsAnimating(true);
-      //   setTimeout(() => setIsAnimating(false), 300);
-      // }
-
-      // if (isDragging) {
-      //   setIsDragging(false);
-      // }
-
-      // if ("touches" in event) {
-      //   setIsTouchDown(false);
-      // } else {
-      //   setIsMouseDown(false);
-      // }
-
       if ("touches" in event) {
-        console.log('touchup');
-        // if (expandedClicked && !dragged) {
-        //   setIsExpanded(false);
-        //   setIsAnimating(true);
-        //   setTimeout(() => setIsAnimating(false), 300);
-        // }
-
-        // if (isDragging) {
-        //   setIsDragging(false);
-        // }
-
-        // setIsTouchDown(false);
-        // return;
+        if (isDragging) {
+          setIsDragging(false);
+        }
       } else {
         if (expandedClicked && !dragged) {
           setIsExpanded(false);
@@ -81,31 +52,10 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
       }
     }, [dragged, expandedClicked, isDragging]);
 
-  // const handleMouseDown = useCallback(
-  //   (clientX: number) => {
-  //     console.log("handleMouseDown");
-  //     // if (isTouch) return;
-  //     // console.log("handleMouseDown", isExpanded);
-  //     setIsMouseDown(true);
-  //     if (!isExpanded) {
-  //       setExpandedClicked(false);
-  //       setIsExpanded(true);
-  //       setInitialX(clientX);
-  //       setIsAnimating(true);
-  //       setTimeout(() => setIsAnimating(false), 300);
-  //     } else {
-  //       setExpandedClicked(true);
-  //       setIsDragged(false);
-  //     }
-  //   }, [isExpanded]);
   const handleDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
-      console.log("handleDown");
       if ("touches" in event) {
-        // handleMouseDown(event.clientX);
-        console.log("touch");
         setIsTouchDown(true);
-        // setIsMouseDown(true); // rename? use?
         if (!isExpanded) {
           setExpandedClicked(false);
           setIsExpanded(true);
@@ -121,8 +71,6 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
           handleUp(event);
           return;
         };
-        console.log("mouse");
-        // handleTouchDown(event.touches[0].clientX);
         setIsMouseDown(true);
         if (!isExpanded) {
           setExpandedClicked(false);
@@ -135,104 +83,13 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
           setIsDragged(false);
         }
       }
-      // if (event instanceof MouseEvent) {
-      //   // handleMouseDown(event.clientX);
-      //   console.log("mouse");
-      // } else if (event instanceof TouchEvent) {
-      //   console.log("touch");
-      //   // handleTouchDown(event.touches[0].clientX);
-      // }
-      // if (isTouch) return;
-      // console.log("handleMouseDown", isExpanded);
-
-
-      // setIsMouseDown(true);
-      // if (!isExpanded) {
-      //   setExpandedClicked(false);
-      //   setIsExpanded(true);
-      //   setInitialX(clientX);
-      //   setIsAnimating(true);
-      //   setTimeout(() => setIsAnimating(false), 300);
-      // } else {
-      //   setExpandedClicked(true);
-      //   setIsDragged(false);
-      // }
     }, [handleUp, isExpanded, isTouchDown]);
 
-
-
-  // const handleTouchDown = useCallback(
-  //   (clientX: number) => {
-  //     // if (isTouch) return;
-  //     console.log("handleTouchDown");
-  //     setIsMouseDown(true);
-  //     if (!isExpanded) {
-  //       setExpandedClicked(false);
-  //       setIsExpanded(true);
-  //       setInitialX(clientX);
-  //       setIsAnimating(true);
-  //       setTimeout(() => setIsAnimating(false), 300);
-  //     } else {
-  //       setExpandedClicked(true);
-  //       setIsDragged(false);
-  //     }
-  //   }, [isExpanded]);
-
-  // const handleMouseUp = useCallback(() => {
-  //   if (expandedClicked && !dragged) {
-  //     setIsExpanded(false);
-  //     setIsAnimating(true);
-  //     setTimeout(() => setIsAnimating(false), 300);
-  //   }
-
-  //   if (isDragging) {
-  //     setIsDragging(false);
-  //   }
-
-  //   setIsMouseDown(false);
-  // }, [dragged, expandedClicked, isDragging]);
-
-
-  // const handleMouseMove = useCallback(
-  //   (clientX: number) => {
-  //     console.log("handleMouseMove", isMouseDown, isDragging);
-  //     if (isMouseDown && clientX !== initialX && !isDragging) {
-  //       setIsDragging(true);
-  //       console.log("handleMouseMove", clientX);
-
-  //       // drag start
-  //       setDialTransition("left 0.3s ease-out");
-
-  //       if (trackRef.current) {
-  //         const bounds = trackRef.current.getBoundingClientRect();
-  //         updatePosition(clientX, bounds);
-  //       }
-
-
-  //       setTimeout(() => {
-  //         setDialTransition("none");
-  //       }, 300);
-
-  //       setIsDragged(true);
-  //     }
-  //     if (isDragging && trackRef.current) {
-  //       const bounds = trackRef.current.getBoundingClientRect();
-  //       updatePosition(clientX, bounds);
-  //       setIsDragged(true);
-  //     }
-  //   },
-  //   [initialX, isDragging, isMouseDown]
-  // );
   const handleMove = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
-      // console.log("handleMouseMove", isMouseDown, isDragging);
       if ("touches" in event) {
-        // if (isMouseDown && event.touches[0].clientX !== initialX && !isDragging) {
         if (isTouchDown && event.touches[0].clientX !== initialX && !isDragging) {
           setIsDragging(true);
-          console.log("handleToucheMove", event.touches[0].clientX);
-
-          // drag start
           setDialTransition("left 0.3s ease-out");
 
           if (trackRef.current) {
@@ -253,19 +110,14 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
           setIsDragged(true);
         }
       } else {
-
         if (isMouseDown && event.clientX !== initialX && !isDragging) {
           setIsDragging(true);
-          console.log("handleMouseMove", event.clientX);
-
-          // drag start
           setDialTransition("left 0.3s ease-out");
 
           if (trackRef.current) {
             const bounds = trackRef.current.getBoundingClientRect();
             updatePosition(event.clientX, bounds);
           }
-
 
           setTimeout(() => {
             setDialTransition("none");
@@ -283,46 +135,6 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
     [initialX, isDragging, isMouseDown, isTouchDown]
   );
 
-  // const handleDragStart = useCallback(
-  //   (clientX: number) => {
-  //     if (isExpanded) {
-  //       setIsDragging(true);
-  //       setDialTransition("left 0.3s ease-in-out");
-
-  //       if (trackRef.current) {
-  //         const bounds = trackRef.current.getBoundingClientRect();
-  //         updatePosition(clientX, bounds);
-  //       }
-
-  //       // Remove the transition after 300ms
-  //       setTimeout(() => {
-  //         setDialTransition("none");
-  //       }, 300);
-  //     }
-  //   },
-  //   [isExpanded]
-  // );
-
-  // const handleDragMove = useCallback(
-  //   (clientX: number) => {
-  //     if (isDragging && trackRef.current) {
-  //       const bounds = trackRef.current.getBoundingClientRect();
-  //       updatePosition(clientX, bounds);
-  //     }
-  //   },
-  //   [isDragging]
-  // );
-
-  // const handleDragEnd = useCallback(() => {
-  //   setIsDragging(false);
-  // }, []);
-
-  // const toggleExpandCollapse = useCallback(() => {
-  //   if (!isDragging) {
-  //     setIsExpanded((prev) => !prev);
-  //   }
-  // }, [isDragging]);
-
   useEffect(() => {
     if (isExpanded) {
       onExpand();
@@ -331,25 +143,11 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
     }
   }, [isExpanded, onExpand, onCollapse]);
 
-  // useEffect(() => {
-  //   const handleGlobalMouseUp = () => {
-  //     if (isDragging) {
-  //       handleDragEnd();
-  //     }
-  //   };
-
-  //   window.addEventListener("mouseup", handleGlobalMouseUp);
-  //   window.addEventListener("touchend", handleGlobalMouseUp);
-
-  //   return () => {
-  //     window.removeEventListener("mouseup", handleGlobalMouseUp);
-  //     window.removeEventListener("touchend", handleGlobalMouseUp);
-  //   };
-  // }, [isDragging, handleDragEnd]);
-
   useOnClickOutside(trackRef, () => {
     if (!isDragging && isExpanded) {
       setIsExpanded(false);
+      setIsAnimating(true);
+      setTimeout(() => setIsAnimating(false), 300);
     }
   });
 
@@ -361,6 +159,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
       onMouseMove={(event) => handleMove(event)}
       onTouchStart={(event) => handleDown(event)}
       onTouchMove={(event) => handleMove(event)}
+      onTouchEnd={(event) => handleUp(event)}
       ref={trackRef}
     >
       <div className="tuner-wrapper">
@@ -401,11 +200,11 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
             className={`tuner-dial ${isExpanded ? "expanded" : ""}`}
             style={{
               left: `${tunerPosition}%`,
-              top: isExpanded ? "6.5vh" : "0vh", // Animate top position
-              height: isExpanded ? "48%" : "100%", // Animate height
+              top: isExpanded ? "6.5vh" : "0vh",
+              height: isExpanded ? "48%" : "100%",
               transition: isAnimating
                 ? "left 0.3s ease-in-out, top 0.3s ease-in-out, height 0.3s ease-in-out"
-                : dialTransition, // Use dynamic transitions
+                : dialTransition,
             }}
           ></div>
           <div className="tuner-stations tuner-am text-primary">
