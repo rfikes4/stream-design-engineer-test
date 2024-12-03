@@ -40,7 +40,7 @@ const Phone: React.FC = () => {
 
   return (
     <div className={`phone h-[calc(90vh)] flex items-center justify-center relative before:bg-primary ${tunerExpanded ? "expanded" : ""}`}>
-      <img src="/iphone.png" alt="iPhone" className="h-full phone-img" />
+      <img src="./images/iphone.png" alt="iPhone" className="h-full phone-img" />
       <StatusBar />
       <div className="content">
         <div className="content-wrapper">

@@ -24,12 +24,12 @@ const Background: React.FC = () => {
 
         <div className="w-full h-[20vh] flex justify-between px-40 mt-[8vh]">
           <img
-            src="/wheel.svg"
+            src="./images/wheel.svg"
             alt="Left Wheel"
             className="wheel-left"
           />
           <img
-            src="/wheel.svg"
+            src="./images/wheel.svg"
             alt="Right Wheel"
             className="wheel-right"
           />

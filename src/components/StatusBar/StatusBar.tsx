@@ -28,9 +28,9 @@ const StatusBar: React.FC = () => {
         <span className="status-time">{currentTime}</span>
       </div>
       <div className="status-right">
-        <img src="/ios15-cellular-signal-icon.png" alt="Signal Icon" className="status-icon" />
-        <img src="/ios15-wifi-icon.png" alt="WiFi Icon" className="status-icon" />
-        <img src="/ios15-battery-status-icon.png" alt="Battery Icon" className="status-icon" />
+        <img src="./images/ios15-cellular-signal-icon.png" alt="Signal Icon" className="status-icon" />
+        <img src="./images/ios15-wifi-icon.png" alt="WiFi Icon" className="status-icon" />
+        <img src="./images/ios15-battery-status-icon.png" alt="Battery Icon" className="status-icon" />
       </div>
     </div>
   );
