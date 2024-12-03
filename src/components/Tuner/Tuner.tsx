@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import NumberFlow from "@number-flow/react";
-import './Tuner.css';
+import "./Tuner.css";
 
 interface TunerProps {
   onExpand: () => void;
@@ -20,45 +20,51 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
     const clampedPosition = Math.max(4, Math.min(x - bounds.left, bounds.width - 4));
     const percentage = (clampedPosition / bounds.width) * 100;
     setTunerPosition(percentage);
-    const newStation = parseFloat((84.5 + (percentage / 100) * 24).toFixed(1));
+    const newStation = 84.5 + (percentage / 100) * 24;
     setStation(newStation);
   };
 
-  const handleDragStart = (clientX: number) => {
-    if (!isExpanded) {
-      setIsAnimating(true);
-      setTimeout(() => setIsAnimating(false), 300);
-    }
-    setIsExpanded(true);
-    setIsDragging(true);
+  const handleDragStart = useCallback(
+    (clientX: number) => {
+      if (!isExpanded) {
+        setIsAnimating(true);
+        setTimeout(() => setIsAnimating(false), 300);
+      }
+      setIsExpanded(true);
+      setIsDragging(true);
 
-    if (trackRef.current) {
-      const bounds = trackRef.current.getBoundingClientRect();
-      updatePosition(clientX, bounds);
-    }
-    onExpand();
-  };
+      if (trackRef.current) {
+        const bounds = trackRef.current.getBoundingClientRect();
+        updatePosition(clientX, bounds);
+      }
+      onExpand();
+    },
+    [isExpanded, onExpand]
+  );
 
-  const handleDragMove = (clientX: number) => {
-    if (isDragging && trackRef.current) {
-      const bounds = trackRef.current.getBoundingClientRect();
-      updatePosition(clientX, bounds);
-    }
-  };
+  const handleDragMove = useCallback(
+    (clientX: number) => {
+      if (isDragging && trackRef.current) {
+        const bounds = trackRef.current.getBoundingClientRect();
+        updatePosition(clientX, bounds);
+      }
+    },
+    [isDragging]
+  );
 
-  const handleDragEnd = () => {
-    setIsDragging(false);
-    if (isExpanded) {
-      handleCollapse();
-    }
-  };
-
-  const handleCollapse = () => {
+  const handleCollapse = useCallback(() => {
     setIsExpanded(false);
     setIsAnimating(true);
     setTimeout(() => setIsAnimating(false), 300);
     onCollapse();
-  };
+  }, [onCollapse]);
+
+  const handleDragEnd = useCallback(() => {
+    setIsDragging(false);
+    if (isExpanded) {
+      handleCollapse();
+    }
+  }, [isExpanded, handleCollapse]);
 
   useEffect(() => {
     const handleGlobalMouseUp = () => {
@@ -74,7 +80,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
       window.removeEventListener("mouseup", handleGlobalMouseUp);
       window.removeEventListener("touchend", handleGlobalMouseUp);
     };
-  }, [isDragging]);
+  }, [isDragging, handleDragEnd]);
 
   useOnClickOutside(trackRef, handleCollapse);
 
@@ -91,7 +97,11 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
     >
       <div className="tuner-wrapper">
         <div className={`tuner-detail ${isExpanded ? "expanded" : ""}`}>
-          <NumberFlow value={station} format={{ minimumFractionDigits: 1 }} className="tuner-frequency text-primary" />
+          <NumberFlow
+            value={station}
+            format={{ style: "decimal", maximumFractionDigits: 1 }}
+            className="tuner-frequency text-primary"
+          />
           <span className="tuner-label">KISS FM</span>
         </div>
         <div className="tuner-stations-wrapper">
