@@ -33,6 +33,29 @@
   font-size: 4.5vh;
   line-height: 3.7vh;
   margin: 3vh 0;
+  display: flex;
+  flex-direction: column;
+  text-align: left; /* Left-align the text */
+  overflow: hidden;
+}
+
+.line {
+  display: flex;
+  justify-content: flex-start; /* Left-align lines */
+}
+
+.letter {
+  display: inline-block;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media (orientation: portrait) and (max-width: 500px) {
