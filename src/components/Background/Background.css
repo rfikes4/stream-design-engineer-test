@@ -1,0 +1,10 @@
+@media (max-width: 1024px) {
+  .dynamic-container {
+    height: clamp(100px, 20vw, 206px);
+  }
+
+  .dynamic-text {
+    font-size: clamp(48px, 20vw, 504px);
+    line-height: clamp(200px, 40vw, 412px);
+  }
+}
