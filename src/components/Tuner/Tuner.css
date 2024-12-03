@@ -155,10 +155,11 @@
   justify-content: space-between;
   width: 100%;
   font-size: 2vh;
-  & > em {
-    color: #3c4436;
-    font-style: initial;
-  }
+}
+
+.tuner-stations em {
+  color: #3c4436;
+  font-style: initial;
 }
 
 .tuner-fm {
