@@ -1,9 +1,4 @@
 @font-face {
-  font-family: "Digital-7 Mono";
-  src: url("../public/fonts/digital-7-mono.ttf") format("truetype");
-}
-
-@font-face {
   font-family: "Digital-7";
   src: url("../public/fonts/digital-7.ttf") format("truetype");
 }
