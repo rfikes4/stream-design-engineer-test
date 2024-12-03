@@ -9,10 +9,23 @@ interface TunerProps {
 }
 
 const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
+  const stationsList = [
+    { name: "WKRP", frequency: 84.7 },
+    { name: "WAVE", frequency: 86.9 },
+    { name: "ROCK", frequency: 89.5 },
+    { name: "KALW", frequency: 91.2 },
+    { name: "HITS", frequency: 93.8 },
+    { name: "JPOP", frequency: 96.4 },
+    { name: "BASS", frequency: 98.7 },
+    { name: "ZENN", frequency: 101.3 },
+    { name: "ECHO", frequency: 104.1 },
+    { name: "VIBE", frequency: 107.9 },
+  ];
+
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [tunerPosition, setTunerPosition] = useState(50);
-  const [station, setStation] = useState(96.1); // Initial station value
+  const [station, setStation] = useState(96.1);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [expandedClicked, setExpandedClicked] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -21,6 +34,9 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
   const [dialTransition, setDialTransition] = useState("none");
   const trackRef = useRef<HTMLDivElement>(null);
   const [isTouchDown, setIsTouchDown] = useState(false);
+  const [stationName, setStationName] = useState("KISS");
+  const [isFadingOut, setIsFadingOut] = useState(false);
+  const [pendingStationName, setPendingStationName] = useState("");
 
   const updatePosition = (x: number, bounds: DOMRect) => {
     const clampedPosition = Math.max(4, Math.min(x - bounds.left, bounds.width - 4));
@@ -28,7 +44,26 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
     setTunerPosition(percentage);
     const newStation = parseFloat((84.5 + (percentage / 100) * 24).toFixed(1));
     setStation(newStation);
+
+    const closestStation = stationsList.reduce((prev, curr) => {
+      return Math.abs(curr.frequency - newStation) < Math.abs(prev.frequency - newStation) ? curr : prev;
+    });
+
+    if (closestStation.name !== stationName) {
+      setIsFadingOut(true);
+      setPendingStationName(closestStation.name);
+    }
   };
+
+  useEffect(() => {
+    if (isFadingOut) {
+      const timeout = setTimeout(() => {
+        setStationName(pendingStationName);
+        setIsFadingOut(false);
+      }, 150);
+      return () => clearTimeout(timeout);
+    }
+  }, [isFadingOut, pendingStationName]);
 
   const handleUp = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
@@ -42,7 +77,9 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
         setIsMouseDown(false);
         setIsTouchDown(false);
       }
-    }, [dragged, expandedClicked]);
+    },
+    [dragged, expandedClicked]
+  );
 
   const handleDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
@@ -129,7 +166,9 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
             format={{ minimumFractionDigits: 1 }}
             className="tuner-frequency text-primary"
           />
-          <span className="tuner-label">KISS FM</span>
+          <span className={`tuner-label ${isFadingOut ? "fading-out" : "fading-in"}`}>
+            {stationName} FM
+          </span>
         </div>
         <div className="tuner-stations-wrapper">
           <div className="tuner-stations tuner-fm text-primary">

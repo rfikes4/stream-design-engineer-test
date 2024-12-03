@@ -15,6 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .control-icon img {
@@ -24,8 +25,15 @@
 .control-icon::before {
   content: "";
   position: absolute;
+  z-index: -1;
   width: 100%;
   height: 100%;
   border: 1px solid #899c7b;
   border-radius: 50%;
+  transition: border 0.3s ease, background-color 0.3s ease-out;
+}
+
+.control-icon:hover::before {
+  border: 1px solid #87987b;
+  background-color: rgba(255, 255, 255, 0.3);
 }

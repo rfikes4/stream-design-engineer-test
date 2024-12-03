@@ -59,8 +59,17 @@
   color: #637158;
   padding: 1.2vh 0 0;
   font-size: 1.8vh;
+  transition: opacity 0.15s ease-out;
+  opacity: 1;
 }
 
+.tuner-label.fading-out {
+  opacity: 0;
+}
+
+.tuner-label.fading-in {
+  opacity: 1;
+}
 .tuner-track {
   position: relative;
   width: 100%;
