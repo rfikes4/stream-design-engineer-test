@@ -10,7 +10,6 @@
     left: 0;
     width: 100%;
     height: 3vh;
-    /* background: rgb(145, 164, 130); */
     background: linear-gradient(
       0deg,
       rgba(145, 164, 130, 0) 0%,
@@ -32,6 +31,7 @@
     transition: opacity 0.3s ease-in-out;
   }
 }
+
 .visualizer.expanded::after {
   opacity: 1;
 }
