@@ -13,7 +13,8 @@
   cursor: grab;
 }
 
-.tuner.dragging {
+.tuner.dragging,
+.tuner.mouse-down {
   cursor: grabbing;
 }
 
