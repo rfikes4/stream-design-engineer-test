@@ -153,7 +153,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
 
   return (
     <div
-      className={`tuner ${isExpanded ? "expanded" : ""}`}
+      className={`tuner ${isExpanded ? "expanded" : ""} ${isDragging ? "dragging" : ""}`}
       onMouseDown={(event) => handleDown(event)}
       onMouseUp={(event) => handleUp(event)}
       onMouseMove={(event) => handleMove(event)}

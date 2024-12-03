@@ -5,11 +5,15 @@
   height: auto;
   width: 100%;
   padding: 0 0.5vh;
-  cursor: grab;
+  cursor: pointer;
   touch-action: none;
 }
 
 .tuner.expanded {
+  cursor: grab;
+}
+
+.tuner.dragging {
   cursor: grabbing;
 }
 
