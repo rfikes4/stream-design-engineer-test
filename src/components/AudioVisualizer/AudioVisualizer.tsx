@@ -43,11 +43,11 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ isExpanded }) => {
 
   return (
     <div
-      className="visualizer flex items-center justify-center"
+      // className="visualizer flex items-center justify-center"
+      className={`visualizer flex items-center justify-center ${isExpanded ? "expanded" : ""}`}
     >
       <div
-        className={`grid ${isExpanded ? "expanded" : ""
-          }`}
+        className={`grid ${isExpanded ? "expanded" : ""}`}
         style={{
           display: "grid",
           gridTemplateColumns: `repeat(${columns}, 1fr)`,

@@ -9,6 +9,10 @@
   touch-action: none;
 }
 
+.tuner.expanded {
+  cursor: grabbing;
+}
+
 .tuner-wrapper {
   width: 100%;
   height: 100%;

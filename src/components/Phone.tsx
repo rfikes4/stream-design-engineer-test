@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AudioVisualizer from './AudioVisualizer';
+import AudioVisualizer from './AudioVisualizer/AudioVisualizer';
 import Tuner from './Tuner';
 import StatusBar from './StatusBar';
 import './Phone.css';
