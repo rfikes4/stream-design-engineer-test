@@ -32,25 +32,17 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
 
   const handleUp = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
-      if ("touches" in event) {
-        if (isDragging) {
-          setIsDragging(false);
-        }
-      } else {
+      setIsDragging(false);
+      if (!("touches" in event)) {
         if (expandedClicked && !dragged) {
           setIsExpanded(false);
           setIsAnimating(true);
           setTimeout(() => setIsAnimating(false), 300);
         }
-
-        if (isDragging) {
-          setIsDragging(false);
-        }
-
         setIsMouseDown(false);
         setIsTouchDown(false);
       }
-    }, [dragged, expandedClicked, isDragging]);
+    }, [dragged, expandedClicked]);
 
   const handleDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
@@ -91,6 +83,9 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
         if (isTouchDown && event.touches[0].clientX !== initialX && !isDragging) {
           setIsDragging(true);
           setDialTransition("left 0.3s ease-out");
+          setTimeout(() => {
+            setDialTransition("none");
+          }, 300);
 
           if (trackRef.current) {
             const bounds = trackRef.current.getBoundingClientRect();
@@ -98,9 +93,6 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
           }
 
 
-          setTimeout(() => {
-            setDialTransition("none");
-          }, 300);
 
           setIsDragged(true);
         }
@@ -113,15 +105,14 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
         if (isMouseDown && event.clientX !== initialX && !isDragging) {
           setIsDragging(true);
           setDialTransition("left 0.3s ease-out");
+          setTimeout(() => {
+            setDialTransition("none");
+          }, 300);
 
           if (trackRef.current) {
             const bounds = trackRef.current.getBoundingClientRect();
             updatePosition(event.clientX, bounds);
           }
-
-          setTimeout(() => {
-            setDialTransition("none");
-          }, 300);
 
           setIsDragged(true);
         }
