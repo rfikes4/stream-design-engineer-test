@@ -37,7 +37,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
         if (expandedClicked && !dragged) {
           setIsExpanded(false);
           setIsAnimating(true);
-          setTimeout(() => setIsAnimating(false), 300);
+          setTimeout(() => setIsAnimating(false), 500);
         }
         setIsMouseDown(false);
         setIsTouchDown(false);
@@ -64,7 +64,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
         setIsExpanded(true);
         setInitialX(clientX);
         setIsAnimating(true);
-        setTimeout(() => setIsAnimating(false), 300);
+        setTimeout(() => setIsAnimating(false), 500);
       } else {
         setExpandedClicked(true);
         setIsDragged(false);
@@ -81,8 +81,8 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
       if ((isTouchEvent && isTouchDown) || (!isTouchEvent && isMouseDown)) {
         if (clientX !== initialX && !isDragging) {
           setIsDragging(true);
-          setDialTransition("left 0.3s ease-out");
-          setTimeout(() => setDialTransition("none"), 300);
+          setDialTransition("left 0.25s ease-out");
+          setTimeout(() => setDialTransition("none"), 250);
         }
 
         if (trackRef.current) {
@@ -107,7 +107,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
     if (!isDragging && isExpanded) {
       setIsExpanded(false);
       setIsAnimating(true);
-      setTimeout(() => setIsAnimating(false), 300);
+      setTimeout(() => setIsAnimating(false), 500);
     }
   });
 
@@ -142,7 +142,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
             className="tuner-track"
             style={{
               height: isExpanded ? "12vh" : "2px",
-              transition: isAnimating ? "height 0.3s ease-in-out" : undefined,
+              transition: isAnimating ? "height 0.5s ease-in-out" : undefined,
             }}
           >
             <div className="knotch-long-wrapper">
@@ -163,7 +163,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
               top: isExpanded ? "6.5vh" : "0vh",
               height: isExpanded ? "48%" : "100%",
               transition: isAnimating
-                ? "left 0.3s ease-in-out, top 0.3s ease-in-out, height 0.3s ease-in-out"
+                ? "left 0.25s ease-in-out, top 0.5s ease-in-out, height 0.5s ease-in-out"
                 : dialTransition,
             }}
           ></div>

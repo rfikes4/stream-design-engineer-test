@@ -39,7 +39,7 @@ const Phone: React.FC = () => {
   const title = `PLAY\nKISS FM\nFOR ME`;
 
   return (
-    <div className="phone h-[calc(90vh)] flex items-center justify-center relative before:bg-primary">
+    <div className={`phone h-[calc(90vh)] flex items-center justify-center relative before:bg-primary ${tunerExpanded ? "expanded" : ""}`}>
       <img src="/iphone.png" alt="iPhone" className="h-full phone-img" />
       <StatusBar />
       <div className="content">

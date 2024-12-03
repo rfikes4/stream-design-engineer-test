@@ -9,7 +9,7 @@ const Background: React.FC = () => {
           ELECTRONICS
         </p>
       </div>
-      <div className="flex gap-16 text-[3vh]">
+      <div className="absolute top-0 left-0 flex gap-16 text-[3vh]">
         <p className="text-mediumGray">RADIO</p>
         <p className="whitespace-pre-line">{`SMART\nFEATURES`}</p>
       </div>
