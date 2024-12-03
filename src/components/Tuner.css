@@ -47,7 +47,6 @@
 }
 
 .tuner-frequency {
-  color: #91a482;
   font-size: 6vh;
 }
 
@@ -150,7 +149,6 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  color: #91a482;
   font-size: 2vh;
   & > em {
     color: #3c4436;

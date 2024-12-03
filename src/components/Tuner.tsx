@@ -12,7 +12,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [tunerPosition, setTunerPosition] = useState(50);
-  const [station, setStation] = useState(94.1); // Initial station value
+  const [station, setStation] = useState(96.1); // Initial station value
   const [isDragging, setIsDragging] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -20,14 +20,14 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
     const clampedPosition = Math.max(4, Math.min(x - bounds.left, bounds.width - 4));
     const percentage = (clampedPosition / bounds.width) * 100;
     setTunerPosition(percentage);
-    const newStation = 80 + (percentage / 100) * 28; // Range: 80-108
-    setStation(parseFloat(newStation.toFixed(1)));
+    const newStation = 84.5 + (percentage / 100) * 24;
+    setStation(newStation);
   };
 
   const handleDragStart = (clientX: number) => {
     if (!isExpanded) {
-      setIsAnimating(true); // Enable transition for initial expansion
-      setTimeout(() => setIsAnimating(false), 300); // Disable transition after 300ms
+      setIsAnimating(true);
+      setTimeout(() => setIsAnimating(false), 300);
     }
     setIsExpanded(true);
     setIsDragging(true);
@@ -49,21 +49,21 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
   const handleDragEnd = () => {
     setIsDragging(false);
     if (isExpanded) {
-      handleCollapse(); // Collapse on drag end
+      handleCollapse();
     }
   };
 
   const handleCollapse = () => {
     setIsExpanded(false);
-    setIsAnimating(true); // Enable transition for collapsing
-    setTimeout(() => setIsAnimating(false), 300); // Disable transition after collapse
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 300);
     onCollapse();
   };
 
   useEffect(() => {
     const handleGlobalMouseUp = () => {
       if (isDragging) {
-        handleDragEnd(); // Trigger collapse on mouse or touch release
+        handleDragEnd();
       }
     };
 
@@ -91,11 +91,11 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
     >
       <div className="tuner-wrapper">
         <div className={`tuner-detail ${isExpanded ? "expanded" : ""}`}>
-          <NumberFlow value={station} className="tuner-frequency" />
+          <NumberFlow value={station} format={{ style: 'decimal', maximumFractionDigits: 1 }} className="tuner-frequency text-primary" />
           <span className="tuner-label">KISS FM</span>
         </div>
         <div className="tuner-stations-wrapper">
-          <div className="tuner-stations tuner-fm">
+          <div className="tuner-stations tuner-fm text-primary">
             <em>FM</em>
             {[88, 92, 96, 100, 104, 107].map((freq) => (
               <span key={freq}>{freq}</span>
@@ -128,7 +128,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
                 : "none",
             }}
           ></div>
-          <div className="tuner-stations tuner-am">
+          <div className="tuner-stations tuner-am text-primary">
             <em>AM</em>
             {[5.4, 6, 7, 8, 10, 12, 14, 16].map((freq) => (
               <span key={freq}>{freq}</span>

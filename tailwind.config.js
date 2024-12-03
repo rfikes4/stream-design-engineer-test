@@ -15,6 +15,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        primary: "#91a482",
         lightGray: "#cdcfcd",
       },
       // letterSpacing: {

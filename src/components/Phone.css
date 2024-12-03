@@ -9,7 +9,6 @@
   z-index: -1;
   width: calc(100% - 3vh);
   height: calc(100% - 2vh);
-  background-color: var(--wrap-bg-color, #91a482);
   border-radius: 5vh;
 }
 
