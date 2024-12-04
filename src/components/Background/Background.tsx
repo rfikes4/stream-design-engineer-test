@@ -60,17 +60,17 @@ const Background: React.FC = () => {
         <div className="absolute bottom-0 w-full px-32 flex justify-center border-t border-lightGray pt-[3vh] pb-[2vh] more lg:justify-between">
           <div className="flex gap-[7vw] items-center">
             <p className="text-[2.5vh] text-mediumGray">MORE</p>
-            <div className="flex">
+            <a href="https://creative.geex-arts.com/" target="_blank" rel="noopener noreferrer" className="flex">
               <p className="text-[2.5vh] text-mediumGray">CREATIVE.</p>
               <p className="text-[2.5vh]">GEEX-ARTS.COM</p>
-            </div>
+            </a>
           </div>
           <div className="gap-[7vw] items-center more-right hidden lg:flex">
             <p className="text-[2.5vh] text-mediumGray">MORE</p>
-            <div className="flex">
+            <a href="https://creative.geex-arts.com/" target="_blank" rel="noopener noreferrer" className="flex">
               <p className="text-[2.5vh] text-mediumGray">CREATIVE.</p>
               <p className="text-[2.5vh]">GEEX-ARTS.COM</p>
-            </div>
+            </a>
           </div>
         </div>
 
