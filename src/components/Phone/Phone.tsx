@@ -8,15 +8,18 @@ import "./Phone.css";
 const Phone: React.FC = () => {
   const [tunerExpanded, setTunerExpanded] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
+  const [stationName, setStationName] = useState("KISS");
 
-  // Replay animation when Tuner collapses
   useEffect(() => {
     if (!tunerExpanded) {
       setAnimationKey((prevKey) => prevKey + 1);
     }
   }, [tunerExpanded]);
 
-  // Function to split title into spans while keeping line spacing
+  useEffect(() => {
+    setAnimationKey((prevKey) => prevKey + 1);
+  }, [stationName]);
+
   const splitText = (text: string) => {
     return text.split("\n").map((line, lineIndex) => (
       <div key={`line-${lineIndex}`} className="line">
@@ -25,8 +28,8 @@ const Phone: React.FC = () => {
             key={`${animationKey}-${lineIndex}-${letterIndex}`}
             className="letter"
             style={{
-              animation: `fadeIn 0.5s cubic-bezier(0,1,1,0) ${(lineIndex * 0.1 +
-                letterIndex * 0.05).toFixed(2)}s forwards`,
+              animation: `fadeIn 0.5s cubic-bezier(0,1,1,0) ${(lineIndex * 0.1 + letterIndex * 0.05).toFixed(2)
+                }s forwards`,
             }}
           >
             {letter === " " ? "\u00A0" : letter}
@@ -36,10 +39,13 @@ const Phone: React.FC = () => {
     ));
   };
 
-  const title = `PLAY\nKISS FM\nFOR ME`;
+  const title = `PLAY\n${stationName} FM\nFOR ME`;
 
   return (
-    <div className={`phone h-[calc(90vh)] flex items-center justify-center relative before:bg-primary ${tunerExpanded ? "expanded" : ""}`}>
+    <div
+      className={`phone h-[calc(90vh)] flex items-center justify-center relative before:bg-primary ${tunerExpanded ? "expanded" : ""
+        }`}
+    >
       <img src="./images/iphone.png" alt="iPhone" className="h-full phone-img" />
       <StatusBar />
       <div className="content">
@@ -49,6 +55,7 @@ const Phone: React.FC = () => {
           <Tuner
             onExpand={() => setTunerExpanded(true)}
             onCollapse={() => setTunerExpanded(false)}
+            onStationChange={setStationName}
           />
           <Controls />
         </div>

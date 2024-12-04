@@ -40,13 +40,13 @@
   margin: 3vh 0;
   display: flex;
   flex-direction: column;
-  text-align: left; /* Left-align the text */
+  text-align: left;
   overflow: hidden;
 }
 
 .line {
   display: flex;
-  justify-content: flex-start; /* Left-align lines */
+  justify-content: flex-start;
 }
 
 .letter {

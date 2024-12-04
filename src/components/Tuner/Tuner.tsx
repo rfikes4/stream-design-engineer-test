@@ -3,25 +3,26 @@ import { useOnClickOutside } from "usehooks-ts";
 import NumberFlow from "@number-flow/react";
 import "./Tuner.css";
 
+const stationsList = [
+  { name: "WKRP", frequency: 84.7 },
+  { name: "WAVE", frequency: 86.9 },
+  { name: "ROCK", frequency: 89.5 },
+  { name: "KALW", frequency: 91.2 },
+  { name: "HITS", frequency: 93.8 },
+  { name: "KISS", frequency: 96.4 },
+  { name: "BASS", frequency: 98.7 },
+  { name: "JPOP", frequency: 101.3 },
+  { name: "ECHO", frequency: 104.1 },
+  { name: "VIBE", frequency: 107.9 },
+];
+
 interface TunerProps {
   onExpand: () => void;
   onCollapse: () => void;
+  onStationChange: (stationName: string) => void;
 }
 
-const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
-  const stationsList = [
-    { name: "WKRP", frequency: 84.7 },
-    { name: "WAVE", frequency: 86.9 },
-    { name: "ROCK", frequency: 89.5 },
-    { name: "KALW", frequency: 91.2 },
-    { name: "HITS", frequency: 93.8 },
-    { name: "JPOP", frequency: 96.4 },
-    { name: "BASS", frequency: 98.7 },
-    { name: "ZENN", frequency: 101.3 },
-    { name: "ECHO", frequency: 104.1 },
-    { name: "VIBE", frequency: 107.9 },
-  ];
-
+const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse, onStationChange }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [tunerPosition, setTunerPosition] = useState(50);
@@ -38,32 +39,37 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [pendingStationName, setPendingStationName] = useState("");
 
-  const updatePosition = (x: number, bounds: DOMRect) => {
-    const clampedPosition = Math.max(4, Math.min(x - bounds.left, bounds.width - 4));
-    const percentage = (clampedPosition / bounds.width) * 100;
-    setTunerPosition(percentage);
-    const newStation = parseFloat((84.5 + (percentage / 100) * 24).toFixed(1));
-    setStation(newStation);
+  const updatePosition = useCallback(
+    (x: number, bounds: DOMRect) => {
+      const clampedPosition = Math.max(4, Math.min(x - bounds.left, bounds.width - 4));
+      const percentage = (clampedPosition / bounds.width) * 100;
+      const newStation = parseFloat((84.5 + (percentage / 100) * 24).toFixed(1));
+      setTunerPosition(percentage);
+      setStation(newStation);
 
-    const closestStation = stationsList.reduce((prev, curr) => {
-      return Math.abs(curr.frequency - newStation) < Math.abs(prev.frequency - newStation) ? curr : prev;
-    });
+      const closestStation = stationsList.reduce((prev, curr) => {
+        return Math.abs(curr.frequency - newStation) < Math.abs(prev.frequency - newStation) ? curr : prev;
+      });
 
-    if (closestStation.name !== stationName) {
-      setIsFadingOut(true);
-      setPendingStationName(closestStation.name);
-    }
-  };
+      if (closestStation.name !== stationName) {
+        setPendingStationName(closestStation.name);
+        setIsFadingOut(true);
+      }
+    },
+    [stationName]
+  );
+
 
   useEffect(() => {
     if (isFadingOut) {
       const timeout = setTimeout(() => {
         setStationName(pendingStationName);
+        onStationChange(pendingStationName);
         setIsFadingOut(false);
       }, 150);
       return () => clearTimeout(timeout);
     }
-  }, [isFadingOut, pendingStationName]);
+  }, [isFadingOut, onStationChange, pendingStationName]);
 
   const handleUp = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
@@ -129,7 +135,7 @@ const Tuner: React.FC<TunerProps> = ({ onExpand, onCollapse }) => {
         }
       }
     },
-    [initialX, isDragging, isMouseDown, isTouchDown]
+    [initialX, isDragging, isMouseDown, isTouchDown, updatePosition]
   );
 
   useEffect(() => {
