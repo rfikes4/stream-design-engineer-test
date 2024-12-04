@@ -79,7 +79,9 @@ npm start
 
 https://stream-design-engineer-test.vercel.app/
 
-https://github.com/user-attachments/assets/7ab52caf-de3a-40d4-a2ba-9f385129f3cd
+
+https://github.com/user-attachments/assets/8ca5e12b-c5b1-416d-ad2c-e9e22ed8cc94
+
 
 
 
